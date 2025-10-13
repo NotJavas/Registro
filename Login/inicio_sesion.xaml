@@ -1,0 +1,55 @@
+﻿<Window x:Class="Registro.Login.InicioSesion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Inicio de sesión" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Background="#37393f">
+        
+    <Grid Margin="10">
+        <Border CornerRadius="5" BorderThickness="2" Padding="8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="260"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="1" x:Name="PanelCentral" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250">
+                    <Label x:Name="LabelTitulo" Style="{StaticResource TitleLabel}" Content="Welcome Back"/>
+                    
+                    <ComboBox x:Name="ComboBoxUsuarios" Style="{StaticResource ComboBox}" SelectionChanged="ComboBoxUsuarios_SelectionChanged"/>
+                    
+                    <Label Content="Usuario:" Style="{StaticResource TextLabel}"/>
+                    <TextBox x:Name="TxtUsuario" Style="{StaticResource TextBox}"/>
+
+                    <Label Content="Clave:" Style="{StaticResource TextLabel}"/>
+                    
+                    <Grid>
+                        <TextBox x:Name="TxtClaveVisible"
+                                 Style="{StaticResource TextBox}"
+                                 Visibility="Collapsed"/>
+                        
+                        <PasswordBox x:Name="TxtClave"
+                                     PasswordChar="•"
+                                     Style="{StaticResource PasswordBox}"/>
+                    </Grid>
+
+                    <CheckBox x:Name="CheckBoxMostrarClave"
+                              Content="Mostrar clave"
+                              Foreground="White"
+                              Margin="0,5,0,0"
+                              Click="CheckBoxMostrarClave_Click"
+                              VerticalContentAlignment="Center"/>
+
+                    <Button x:Name="BotonLogin"
+                            Content="Iniciar sesión"
+                            Style="{StaticResource LoginButton}"
+                            Click="BotonLogin_Click"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="2" x:Name="PanelDerecho" HorizontalAlignment="Right" Margin="6">
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

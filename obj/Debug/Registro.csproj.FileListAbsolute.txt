@@ -1,0 +1,55 @@
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\bin\Debug\Registro.exe.config
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\bin\Debug\Registro.exe
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\bin\Debug\Registro.pdb
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\obj\Debug\Registro.csproj.AssemblyReference.cache
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\obj\Debug\MainWindow.g.cs
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\obj\Debug\App.g.cs
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\obj\Debug\Registro_MarkupCompile.cache
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\obj\Debug\Registro_MarkupCompile.lref
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\obj\Debug\MainWindow.baml
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\obj\Debug\Registro.g.resources
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\obj\Debug\Registro.Properties.Resources.resources
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\obj\Debug\Registro.csproj.GenerateResource.cache
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\obj\Debug\Registro.csproj.CoreCompileInputs.cache
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\obj\Debug\Registro.exe
+C:\Users\yapi2\OneDrive\Escuela\quinto semestre\Frameworks\Registro\Registro\obj\Debug\Registro.pdb
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Registro.csproj.AssemblyReference.cache
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\login\inicio_sesion.g.cs
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\App.g.cs
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Registro_MarkupCompile.cache
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Registro.exe
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Registro.pdb
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\Registro.exe.config
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\Registro.exe
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\Registro.pdb
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\login\inicio_sesion.baml
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\App.baml
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Registro.g.resources
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Registro.Properties.Resources.resources
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Registro.csproj.GenerateResource.cache
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Registro.csproj.CoreCompileInputs.cache
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\estilos\botones.baml
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\EntityFramework.dll
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\System.Data.SQLite.dll
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\EntityFramework.xml
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\System.Data.SQLite.xml
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Registro.csproj.Up2Date
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\estilos\textBox.baml
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Estilos\comboBox.baml
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Principal\FormPrincipal.baml
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Principal\FormPrincipal.g.cs
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Estilos\contextMenu.baml
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Estilos\labels.baml
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\EditarUsuario\EditarUsuario.baml
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\EditarAlumnos\EditarAlumnos.g.cs
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\EditarMaestros\EditarMaestros.g.cs
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\EditarMaterias\EditarMaterias.g.cs
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\EditarUsuario\EditarUsuario.g.cs
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\Estilos\dataGrid.baml
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\EditarAlumnos\EditarAlumnos.baml
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\EditarMaestros\EditarMaestros.baml
+C:\Users\javie\Downloads\RegAlumnos\obj\Debug\EditarMaterias\EditarMaterias.baml

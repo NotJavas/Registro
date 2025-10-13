@@ -1,0 +1,16 @@
+﻿<Application x:Class="Registro.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Login/inicio_sesion.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Estilos/labels.xaml"/>
+                <ResourceDictionary Source="/Estilos/botones.xaml"/>
+                <ResourceDictionary Source="/Estilos/textBox.xaml"/>
+                <ResourceDictionary Source="/Estilos/comboBox.xaml"/>
+                <ResourceDictionary Source="/Estilos/dataGrid.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
