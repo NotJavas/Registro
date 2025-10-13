@@ -1,0 +1,38 @@
+<Window x:Class="Registro.EditarAlumnos.EditarAlumnos_Formulario"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Formulario de Alumno" Height="400" Width="400"
+        WindowStartupLocation="CenterOwner"
+        Background="#37393f">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Expediente:" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+        <TextBox x:Name="TxtExpediente" Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+
+        <Label Content="Nombre:" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+        <TextBox x:Name="TxtNombre" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+
+        <Label Content="Apellidos:" Grid.Row="2" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+        <TextBox x:Name="TxtApellidos" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+
+        <Label Content="Correo:" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+        <TextBox x:Name="TxtCorreo" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+
+        <Label Content="Teléfono:" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+        <TextBox x:Name="TxtTelefono" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+
+        <Button Content="Guardar" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Click="Guardar_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource BotonEstilo}"/>
+    </Grid>
+</Window>
