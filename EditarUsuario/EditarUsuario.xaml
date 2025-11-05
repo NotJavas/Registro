@@ -1,4 +1,4 @@
-<Window x:Class="Registro.EditarUsuarios.EditarUsuario"
+<Window x:Class="Registro.EditarUsuario.EditarUsuario"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Gestionar Usuarios" Height="550" Width="800"

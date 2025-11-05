@@ -8,9 +8,18 @@ namespace Registro.EditarMaterias
 {
     public partial class EditarMaterias : Window
     {
+        private int? _materiaId;
+
         public EditarMaterias()
         {
             InitializeComponent();
+            CargarDatos();
+        }
+
+        public EditarMaterias(int materiaId)
+        {
+            InitializeComponent();
+            _materiaId = materiaId;
             CargarDatos();
         }
 
@@ -22,6 +31,11 @@ namespace Registro.EditarMaterias
                     Globales.Conexion.Open();
 
                 string query = "SELECT ID, Nombre, Semestre FROM Materias";
+                if (_materiaId.HasValue)
+                {
+                    query += " WHERE ID = " + _materiaId.Value;
+                }
+
                 using (SQLiteCommand cmd = new SQLiteCommand(query, Globales.Conexion))
                 {
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
@@ -38,7 +52,7 @@ namespace Registro.EditarMaterias
 
         private void MenuNuevo_Click(object sender, RoutedEventArgs e)
         {
-            var form = new EditarMaterias_Formulario();
+            var form = new EditarMaterias();
             form.Owner = this;
             if (form.ShowDialog() == true)
             {
@@ -50,8 +64,7 @@ namespace Registro.EditarMaterias
         {
             if (MateriasGrid.SelectedItem is DataRowView selectedRow)
             {
-                int materiaId = Convert.ToInt32(selectedRow["ID"]);
-                var form = new EditarMaterias_Formulario(materiaId);
+                var form = new EditarMaterias(Convert.ToInt32(selectedRow["ID"]));
                 form.Owner = this;
                 if (form.ShowDialog() == true)
                 {
@@ -72,10 +85,9 @@ namespace Registro.EditarMaterias
                 {
                     try
                     {
-                        int materiaId = Convert.ToInt32(selectedRow["ID"]);
                         using (var cmd = new SQLiteCommand("DELETE FROM Materias WHERE ID = @id", Globales.Conexion))
                         {
-                            cmd.Parameters.AddWithValue("@id", materiaId);
+                            cmd.Parameters.AddWithValue("@id", Convert.ToInt32(selectedRow["ID"]));
                             cmd.ExecuteNonQuery();
                         }
                         MessageBox.Show("Materia eliminada con éxito.");

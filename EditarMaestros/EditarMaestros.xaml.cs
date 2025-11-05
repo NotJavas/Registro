@@ -8,9 +8,18 @@ namespace Registro.EditarMaestros
 {
     public partial class EditarMaestros : Window
     {
+        private int? _maestroId;
+
         public EditarMaestros()
         {
             InitializeComponent();
+            CargarDatos();
+        }
+
+        public EditarMaestros(int maestroId)
+        {
+            InitializeComponent();
+            _maestroId = maestroId;
             CargarDatos();
         }
 
@@ -22,6 +31,11 @@ namespace Registro.EditarMaestros
                     Globales.Conexion.Open();
 
                 string query = "SELECT ID, Nombre, Correo, Facultad, Tipo FROM Maestros";
+                if (_maestroId.HasValue)
+                {
+                    query += " WHERE ID = " + _maestroId.Value;
+                }
+
                 using (SQLiteCommand cmd = new SQLiteCommand(query, Globales.Conexion))
                 {
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
@@ -38,7 +52,7 @@ namespace Registro.EditarMaestros
 
         private void MenuNuevo_Click(object sender, RoutedEventArgs e)
         {
-            var form = new EditarMaestros_Formulario();
+            var form = new EditarMaestros();
             form.Owner = this;
             if (form.ShowDialog() == true)
             {
@@ -50,8 +64,7 @@ namespace Registro.EditarMaestros
         {
             if (MaestrosGrid.SelectedItem is DataRowView selectedRow)
             {
-                int maestroId = Convert.ToInt32(selectedRow["ID"]);
-                var form = new EditarMaestros_Formulario(maestroId);
+                var form = new EditarMaestros(Convert.ToInt32(selectedRow["ID"]));
                 form.Owner = this;
                 if (form.ShowDialog() == true)
                 {
@@ -72,10 +85,9 @@ namespace Registro.EditarMaestros
                 {
                     try
                     {
-                        int maestroId = Convert.ToInt32(selectedRow["ID"]);
                         using (var cmd = new SQLiteCommand("DELETE FROM Maestros WHERE ID = @id", Globales.Conexion))
                         {
-                            cmd.Parameters.AddWithValue("@id", maestroId);
+                            cmd.Parameters.AddWithValue("@id", Convert.ToInt32(selectedRow["ID"]));
                             cmd.ExecuteNonQuery();
                         }
                         MessageBox.Show("Maestro eliminado con éxito.");

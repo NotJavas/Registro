@@ -8,9 +8,18 @@ namespace Registro.EditarAlumnos
 {
     public partial class EditarAlumnos : Window
     {
+        private int? expediente;
+
         public EditarAlumnos()
         {
             InitializeComponent();
+            CargarDatos();
+        }
+
+        public EditarAlumnos(int expediente)
+        {
+            InitializeComponent();
+            this.expediente = expediente;
             CargarDatos();
         }
 
@@ -38,7 +47,7 @@ namespace Registro.EditarAlumnos
 
         private void MenuNuevo_Click(object sender, RoutedEventArgs e)
         {
-            var form = new EditarAlumnos_Formulario();
+            var form = new EditarAlumnos();
             form.Owner = this;
             if (form.ShowDialog() == true)
             {
@@ -51,7 +60,7 @@ namespace Registro.EditarAlumnos
             if (AlumnosGrid.SelectedItem is DataRowView selectedRow)
             {
                 int expediente = Convert.ToInt32(selectedRow["Expediente"]);
-                var form = new EditarAlumnos_Form(expediente);
+                var form = new EditarAlumnos(expediente);
                 form.Owner = this;
                 if (form.ShowDialog() == true)
                 {

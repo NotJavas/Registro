@@ -4,13 +4,22 @@ using System.Data.SQLite;
 using System.Windows;
 using Registro.Login.Database;
 
-namespace Registro.EditarUsuarios
+namespace Registro.EditarUsuario
 {
     public partial class EditarUsuario : Window
     {
+        private int? _userId;
+
         public EditarUsuario()
         {
             InitializeComponent();
+            CargarDatos();
+        }
+
+        public EditarUsuario(int userId)
+        {
+            InitializeComponent();
+            _userId = userId;
             CargarDatos();
         }
 
@@ -22,6 +31,11 @@ namespace Registro.EditarUsuarios
                     Globales.Conexion.Open();
 
                 string query = "SELECT ID, Nombre, Correo, Clave, Tipo FROM Usuarios";
+                if (_userId.HasValue)
+                {
+                    query += " WHERE ID = " + _userId.Value;
+                }
+
                 using (SQLiteCommand cmd = new SQLiteCommand(query, Globales.Conexion))
                 {
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
@@ -38,7 +52,7 @@ namespace Registro.EditarUsuarios
 
         private void MenuNuevo_Click(object sender, RoutedEventArgs e)
         {
-            var form = new EditarUsuario_Formulario();
+            var form = new EditarUsuario();
             form.Owner = this;
             if (form.ShowDialog() == true)
             {
@@ -50,8 +64,7 @@ namespace Registro.EditarUsuarios
         {
             if (UserGrid.SelectedItem is DataRowView selectedRow)
             {
-                int userId = Convert.ToInt32(selectedRow["ID"]);
-                var form = new EditarUsuario_Formulario(userId);
+                var form = new EditarUsuario(Convert.ToInt32(selectedRow["ID"]));
                 form.Owner = this;
                 if (form.ShowDialog() == true)
                 {
@@ -72,10 +85,9 @@ namespace Registro.EditarUsuarios
                 {
                     try
                     {
-                        int userId = Convert.ToInt32(selectedRow["ID"]);
                         using (var cmd = new SQLiteCommand("DELETE FROM Usuarios WHERE ID = @id", Globales.Conexion))
                         {
-                            cmd.Parameters.AddWithValue("@id", userId);
+                            cmd.Parameters.AddWithValue("@id", Convert.ToInt32(selectedRow["ID"]));
                             cmd.ExecuteNonQuery();
                         }
                         MessageBox.Show("Usuario eliminado con éxito.");

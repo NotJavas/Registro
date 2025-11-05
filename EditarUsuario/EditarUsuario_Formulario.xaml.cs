@@ -3,7 +3,7 @@ using System.Data.SQLite;
 using System.Windows;
 using Registro.Login.Database;
 
-namespace Registro.EditarUsuarios
+namespace Registro.EditarUsuario
 {
     public partial class EditarUsuario_Formulario : Window
     {
