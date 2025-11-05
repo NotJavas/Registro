@@ -1,25 +1,66 @@
 <Window x:Class="Registro.EditarMaestros.EditarMaestros"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Gestionar Maestros" Height="550" Width="800"
+        Title="Gestión de Maestros" 
+        Height="600" Width="800" 
         WindowStartupLocation="CenterScreen"
         Background="#37393f">
-    <Grid Margin="15">
-        <DataGrid x:Name="MaestrosGrid" AutoGenerateColumns="False" IsReadOnly="True">
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="➕ Agregar Nuevo" Click="MenuNuevo_Click"/>
-                    <MenuItem Header="📝 Editar Seleccionado" Click="MenuEditar_Click"/>
-                    <MenuItem Header="❌ Eliminar Seleccionado" Click="MenuEliminar_Click"/>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- DataGrid para mostrar los maestros -->
+        <DataGrid x:Name="MaestrosGrid" Grid.Row="0" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True"
+                  SelectionChanged="MaestrosGrid_SelectionChanged"
+                  Style="{StaticResource DataGridPersonalizado}" 
+                  ColumnHeaderStyle="{StaticResource DataGridHeaderPersonalizado}" 
+                  RowStyle="{StaticResource DataGridRowPersonalizado}" 
+                  CellStyle="{StaticResource DataGridCellPersonalizado}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50" />
-                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="2*" />
-                <DataGridTextColumn Header="Correo" Binding="{Binding Correo}" Width="2*" />
-                <DataGridTextColumn Header="Facultad" Binding="{Binding Facultad}" Width="*" />
-                <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" Width="*" />
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50"/>
+                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="2*"/>
+                <DataGridTextColumn Header="Correo" Binding="{Binding Correo}" Width="2*"/>
+                <DataGridTextColumn Header="Facultad" Binding="{Binding Facultad}" Width="*"/>
+                <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
+
+        <!-- Formulario de Edición/Creación -->
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Nombre:" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+            <TextBox x:Name="TxtNombre" Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+
+            <Label Content="Correo:" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+            <TextBox x:Name="TxtCorreo" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+
+            <Label Content="Facultad:" Grid.Row="2" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+            <TextBox x:Name="TxtFacultad" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+
+            <Label Content="Tipo:" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+            <TextBox x:Name="TxtTipo" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+
+            <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" VerticalAlignment="Center">
+                <Button Content="Guardar" Click="Guardar_Click" Style="{StaticResource LoginButton}" Margin="5"/>
+                <Button Content="Nuevo" Click="Nuevo_Click" Style="{StaticResource LoginButton}" Margin="5"/>
+                <Button Content="Eliminar" Click="Eliminar_Click" Style="{StaticResource LoginButton}" Margin="5"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

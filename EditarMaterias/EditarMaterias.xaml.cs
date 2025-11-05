@@ -2,24 +2,16 @@ using System;
 using System.Data;
 using System.Data.SQLite;
 using System.Windows;
+using System.Windows.Controls;
 using Registro.Login.Database;
 
 namespace Registro.EditarMaterias
 {
     public partial class EditarMaterias : Window
     {
-        private int? _materiaId;
-
         public EditarMaterias()
         {
             InitializeComponent();
-            CargarDatos();
-        }
-
-        public EditarMaterias(int materiaId)
-        {
-            InitializeComponent();
-            _materiaId = materiaId;
             CargarDatos();
         }
 
@@ -28,18 +20,15 @@ namespace Registro.EditarMaterias
             try
             {
                 if (Globales.Conexion.State != ConnectionState.Open)
-                    Globales.Conexion.Open();
-
-                string query = "SELECT ID, Nombre, Semestre FROM Materias";
-                if (_materiaId.HasValue)
                 {
-                    query += " WHERE ID = " + _materiaId.Value;
+                    Globales.Conexion.Open();
                 }
 
-                using (SQLiteCommand cmd = new SQLiteCommand(query, Globales.Conexion))
+                const string query = "SELECT ID, Nombre, Semestre FROM Materias";
+                using (var cmd = new SQLiteCommand(query, Globales.Conexion))
                 {
-                    SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd);
-                    DataTable dataTable = new DataTable();
+                    var adapter = new SQLiteDataAdapter(cmd);
+                    var dataTable = new DataTable();
                     adapter.Fill(dataTable);
                     MateriasGrid.ItemsSource = dataTable.DefaultView;
                 }
@@ -50,58 +39,99 @@ namespace Registro.EditarMaterias
             }
         }
 
-        private void MenuNuevo_Click(object sender, RoutedEventArgs e)
-        {
-            var form = new EditarMaterias();
-            form.Owner = this;
-            if (form.ShowDialog() == true)
-            {
-                CargarDatos();
-            }
-        }
-
-        private void MenuEditar_Click(object sender, RoutedEventArgs e)
+        private void MateriasGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MateriasGrid.SelectedItem is DataRowView selectedRow)
             {
-                var form = new EditarMaterias(Convert.ToInt32(selectedRow["ID"]));
-                form.Owner = this;
-                if (form.ShowDialog() == true)
-                {
-                    CargarDatos();
-                }
+                TxtNombre.Text = selectedRow["Nombre"].ToString();
+                TxtSemestre.Text = selectedRow["Semestre"].ToString();
+            }
+        }
+
+        private void Guardar_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TxtNombre.Text) || string.IsNullOrWhiteSpace(TxtSemestre.Text))
+            {
+                MessageBox.Show("Nombre y Semestre son campos obligatorios.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            string query;
+            bool isNew = MateriasGrid.SelectedItem == null;
+
+            if (isNew)
+            {
+                query = "INSERT INTO Materias (Nombre, Semestre) VALUES (@nombre, @semestre)";
             }
             else
             {
-                MessageBox.Show("Por favor, selecciona una materia para editar.");
+                query = "UPDATE Materias SET Nombre = @nombre, Semestre = @semestre WHERE ID = @id";
+            }
+
+            try
+            {
+                using (var cmd = new SQLiteCommand(query, Globales.Conexion))
+                {
+                    cmd.Parameters.AddWithValue("@nombre", TxtNombre.Text);
+                    cmd.Parameters.AddWithValue("@semestre", TxtSemestre.Text);
+
+                    if (!isNew)
+                    {
+                        var selectedRow = (DataRowView)MateriasGrid.SelectedItem;
+                        cmd.Parameters.AddWithValue("@id", Convert.ToInt32(selectedRow["ID"]));
+                    }
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Materia guardada con éxito.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                CargarDatos();
+                Nuevo_Click(null, null); // Limpiar formulario
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al guardar la materia: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private void MenuEliminar_Click(object sender, RoutedEventArgs e)
+        private void Nuevo_Click(object sender, RoutedEventArgs e)
+        {
+            MateriasGrid.SelectedItem = null;
+            TxtNombre.Clear();
+            TxtSemestre.Clear();
+            TxtNombre.Focus();
+        }
+
+        private void Eliminar_Click(object sender, RoutedEventArgs e)
         {
             if (MateriasGrid.SelectedItem is DataRowView selectedRow)
             {
-                if (MessageBox.Show("¿Estás seguro de que quieres eliminar esta materia?", "Confirmar Eliminación", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                var result = MessageBox.Show("¿Estás seguro de que quieres eliminar esta materia?", "Confirmar Eliminación", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        using (var cmd = new SQLiteCommand("DELETE FROM Materias WHERE ID = @id", Globales.Conexion))
+                        int materiaId = Convert.ToInt32(selectedRow["ID"]);
+                        const string query = "DELETE FROM Materias WHERE ID = @id";
+                        using (var cmd = new SQLiteCommand(query, Globales.Conexion))
                         {
-                            cmd.Parameters.AddWithValue("@id", Convert.ToInt32(selectedRow["ID"]));
+                            cmd.Parameters.AddWithValue("@id", materiaId);
                             cmd.ExecuteNonQuery();
                         }
-                        MessageBox.Show("Materia eliminada con éxito.");
+                        MessageBox.Show("Materia eliminada con éxito.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                         CargarDatos();
+                        Nuevo_Click(null, null); // Limpiar formulario
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error al eliminar la materia: {ex.Message}");
+                        MessageBox.Show($"Error al eliminar la materia: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Por favor, selecciona una materia para eliminar.");
+                MessageBox.Show("Por favor, selecciona una materia para eliminar.", "Selección Requerida", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

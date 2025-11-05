@@ -2,17 +2,17 @@
 
 namespace Registro.Principal
 {
-    public partial class FormPrincipal
+    public partial class FormPrincipal : Window
     {
         public FormPrincipal()
         {
             InitializeComponent();
         }
         
-        private void BotonAgregarClick(object sender, RoutedEventArgs e)
+        private void BotonUsuarios_Click(object sender, RoutedEventArgs e)
         {
-            var ventanaEditar = new EditarUsuario.EditarUsuario();
-            ventanaEditar.ShowDialog();
+            var ventanaUsuarios = new EditarUsuario.EditarUsuario();
+            ventanaUsuarios.ShowDialog();
         }
         
         private void BotonAlumnos_Click(object sender, RoutedEventArgs e)
@@ -32,6 +32,5 @@ namespace Registro.Principal
             var ventanaMaterias = new EditarMaterias.EditarMaterias();
             ventanaMaterias.ShowDialog();
         }
-        
     }
 }

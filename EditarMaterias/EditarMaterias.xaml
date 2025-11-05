@@ -1,23 +1,56 @@
 <Window x:Class="Registro.EditarMaterias.EditarMaterias"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Gestionar Materias" Height="450" Width="600"
+        Title="Gestión de Materias" 
+        Height="500" Width="600" 
         WindowStartupLocation="CenterScreen"
         Background="#37393f">
-    <Grid Margin="15">
-        <DataGrid x:Name="MateriasGrid" AutoGenerateColumns="False" IsReadOnly="True">
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="➕ Agregar Nuevo" Click="MenuNuevo_Click"/>
-                    <MenuItem Header="📝 Editar Seleccionado" Click="MenuEditar_Click"/>
-                    <MenuItem Header="❌ Eliminar Seleccionado" Click="MenuEliminar_Click"/>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- DataGrid para mostrar las materias -->
+        <DataGrid x:Name="MateriasGrid" Grid.Row="0" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True"
+                  SelectionChanged="MateriasGrid_SelectionChanged"
+                  Style="{StaticResource DataGridPersonalizado}" 
+                  ColumnHeaderStyle="{StaticResource DataGridHeaderPersonalizado}" 
+                  RowStyle="{StaticResource DataGridRowPersonalizado}" 
+                  CellStyle="{StaticResource DataGridCellPersonalizado}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50" />
-                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="2*" />
-                <DataGridTextColumn Header="Semestre" Binding="{Binding Semestre}" Width="*" />
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50"/>
+                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="2*"/>
+                <DataGridTextColumn Header="Semestre" Binding="{Binding Semestre}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
+
+        <!-- Formulario de Edición/Creación -->
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Nombre:" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+            <TextBox x:Name="TxtNombre" Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+
+            <Label Content="Semestre:" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+            <TextBox x:Name="TxtSemestre" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+
+            <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center">
+                <Button Content="Guardar" Click="Guardar_Click" Style="{StaticResource LoginButton}" Margin="5"/>
+                <Button Content="Nuevo" Click="Nuevo_Click" Style="{StaticResource LoginButton}" Margin="5"/>
+                <Button Content="Eliminar" Click="Eliminar_Click" Style="{StaticResource LoginButton}" Margin="5"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

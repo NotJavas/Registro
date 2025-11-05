@@ -33,6 +33,6 @@
         <Label Content="Teléfono:" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextLabel}"/>
         <TextBox x:Name="TxtTelefono" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
 
-        <Button Content="Guardar" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Click="Guardar_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource BotonEstilo}"/>
+        <Button Content="Guardar" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Click="Guardar_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource LoginButton}"/>
     </Grid>
 </Window>

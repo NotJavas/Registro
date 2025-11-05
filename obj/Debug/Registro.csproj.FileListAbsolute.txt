@@ -94,3 +94,6 @@ C:\Users\Javas\RiderProjects\Registro\obj\Debug\Registro.Properties.Resources.re
 C:\Users\Javas\RiderProjects\Registro\obj\Debug\Registro.csproj.GenerateResource.cache
 C:\Users\Javas\RiderProjects\Registro\obj\Debug\Registro.csproj.CoreCompileInputs.cache
 C:\Users\Javas\RiderProjects\Registro\obj\Debug\Registro.csproj.Up2Date
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\Microsoft.Office.Interop.Excel.dll
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\Office.dll
+C:\Users\javie\Downloads\RegAlumnos\bin\Debug\stdole.dll

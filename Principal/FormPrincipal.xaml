@@ -1,109 +1,62 @@
 ﻿<Window x:Class="Registro.Principal.FormPrincipal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="FormPrincipal" Height="450" Width="800"
+        Title="Menú Principal - Sistema de Registro"
+        Height="300" Width="600"
+        WindowStartupLocation="CenterScreen"
         Background="#37393f">
-    <Grid x:Name="GridCentral"
-          VerticalAlignment="Center"
-          HorizontalAlignment="Center">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="35"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="100"/>
-        </Grid.ColumnDefinitions>
 
-        <!-- Fila 1 -->
-        
-        <RadioButton x:Name="BotonHome"
-                     Grid.Row="0" Grid.Column="0"
-                     Style="{StaticResource EstiloBotonCentral}"
-                     Click="BotonAlumnos_Click"> <RadioButton.Background>
-                <ImageBrush ImageSource="/Iconos/alumno.png" Stretch="Uniform"/>
-            </RadioButton.Background>
-        </RadioButton>
-        <Label Grid.Row="1" Grid.Column="0" Content="Alumno" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal">
 
-        <RadioButton x:Name="BotonProfesores"
-                     Grid.Row="0" Grid.Column="1"
-                     Style="{StaticResource EstiloBotonCentral}"
-                     Click="BotonMaestros_Click"> <RadioButton.Background>
-                <ImageBrush ImageSource="/Iconos/teacher.png" Stretch="Uniform"/>
-            </RadioButton.Background>
-        </RadioButton>
-        <Label Grid.Row="1" Grid.Column="1" Content="Profesores" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
+            <!-- Botón Alumnos -->
+            <StackPanel Margin="10">
+                <RadioButton x:Name="BotonAlumnos"
+                             Style="{StaticResource EstiloBotonCentral}"
+                             Click="BotonAlumnos_Click">
+                    <RadioButton.Background>
+                        <ImageBrush ImageSource="/Iconos/alumno.png" Stretch="Uniform"/>
+                    </RadioButton.Background>
+                </RadioButton>
+                <Label Content="Alumnos" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
+            </StackPanel>
 
-        <RadioButton x:Name="BotonMaterias"
-                     Grid.Row="0" Grid.Column="2"
-                     Style="{StaticResource EstiloBotonCentral}"
-                     Click="BotonMaterias_Click"> <RadioButton.Background>
-                <ImageBrush ImageSource="/Iconos/libro.png" Stretch="Uniform"/>
-            </RadioButton.Background>
-        </RadioButton>
-        <Label Grid.Row="1" Grid.Column="2" Content="Materias" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
-        
-        <!-- Fila 2 -->
-        <RadioButton x:Name="BotonCuota"
-                     Grid.Row="2" Grid.Column="0"
-                     Style="{StaticResource EstiloBotonCentral}">
-            <RadioButton.Background>
-                <ImageBrush ImageSource="/Iconos/cuota.png" Stretch="Uniform"/>
-            </RadioButton.Background>
-        </RadioButton>
-        <Label Grid.Row="3" Grid.Column="0" Content="Cuota" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
+            <!-- Botón Maestros -->
+            <StackPanel Margin="10">
+                <RadioButton x:Name="BotonMaestros"
+                             Style="{StaticResource EstiloBotonCentral}"
+                             Click="BotonMaestros_Click">
+                    <RadioButton.Background>
+                        <ImageBrush ImageSource="/Iconos/teacher.png" Stretch="Uniform"/>
+                    </RadioButton.Background>
+                </RadioButton>
+                <Label Content="Maestros" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
+            </StackPanel>
 
-        <RadioButton x:Name="BotonAgregar"
-                     Grid.Row="2" Grid.Column="1"
-                     Style="{StaticResource EstiloBotonCentral}"
-                     Click="BotonAgregarClick">
-            <RadioButton.Background>
-                <ImageBrush ImageSource="/Iconos/add.png" Stretch="Uniform"/>
-            </RadioButton.Background>
-        </RadioButton>
-        <Label Grid.Row="3" Grid.Column="1" Content="Agregar" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
+            <!-- Botón Materias -->
+            <StackPanel Margin="10">
+                <RadioButton x:Name="BotonMaterias"
+                             Style="{StaticResource EstiloBotonCentral}"
+                             Click="BotonMaterias_Click">
+                    <RadioButton.Background>
+                        <ImageBrush ImageSource="/Iconos/libro.png" Stretch="Uniform"/>
+                    </RadioButton.Background>
+                </RadioButton>
+                <Label Content="Materias" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
+            </StackPanel>
 
-        <RadioButton x:Name="BotonActualizar"
-                     Grid.Row="2" Grid.Column="2"
-                     Style="{StaticResource EstiloBotonCentral}">
-            <RadioButton.Background>
-                <ImageBrush ImageSource="/Iconos/update.png" Stretch="Uniform"/>
-            </RadioButton.Background>
-        </RadioButton>
-        <Label Grid.Row="3" Grid.Column="2" Content="Actualizar" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
+            <!-- Botón Usuarios -->
+            <StackPanel Margin="10">
+                <RadioButton x:Name="BotonUsuarios"
+                             Style="{StaticResource EstiloBotonCentral}"
+                             Click="BotonUsuarios_Click">
+                    <RadioButton.Background>
+                        <ImageBrush ImageSource="/Iconos/user.png" Stretch="Uniform"/>
+                    </RadioButton.Background>
+                </RadioButton>
+                <Label Content="Usuarios" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
+            </StackPanel>
 
-        <!-- Fila 3 -->
-        <RadioButton x:Name="BotonUsuario"
-                     Grid.Row="4" Grid.Column="0"
-                     Style="{StaticResource EstiloBotonCentral}">
-            <RadioButton.Background>
-                <ImageBrush ImageSource="/Iconos/user.png" Stretch="Uniform"/>
-            </RadioButton.Background>
-        </RadioButton>
-        <Label Grid.Row="5" Grid.Column="0" Content="Usuario" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
-
-        <RadioButton x:Name="BotonEliminar"
-                     Grid.Row="4" Grid.Column="1"
-                     Style="{StaticResource EstiloBotonCentral}">
-            <RadioButton.Background>
-                <ImageBrush ImageSource="/Iconos/trash.png" Stretch="Uniform"/>
-            </RadioButton.Background>
-        </RadioButton>
-        <Label Grid.Row="5" Grid.Column="1" Content="Eliminar" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
-
-        <RadioButton x:Name="BotonConfigurar"
-                     Grid.Row="4" Grid.Column="2"
-                     Style="{StaticResource EstiloBotonCentral}">
-            <RadioButton.Background>
-                <ImageBrush ImageSource="/Iconos/config.png" Stretch="Uniform"/>
-            </RadioButton.Background>
-        </RadioButton>
-        <Label Grid.Row="5" Grid.Column="2" Content="Configurar" Style="{StaticResource TextLabel}" HorizontalAlignment="Center"/>
+        </StackPanel>
     </Grid>
 </Window>
