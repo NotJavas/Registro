@@ -4,6 +4,7 @@ using System.Data.SQLite;
 using System.Windows;
 using System.Windows.Controls;
 using Registro.Login.Database;
+using Registro.Utils; // Importante para el helper
 
 namespace Registro.EditarAlumnos
 {
@@ -138,6 +139,20 @@ namespace Registro.EditarAlumnos
             else
             {
                 MessageBox.Show("Por favor, selecciona un alumno para eliminar.", "Selección Requerida", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+        private void ExportarExcel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string fileName = $"Reporte_Alumnos_{DateTime.Now:yyyyMMdd_HHmm}.xlsx";
+                string template = "Plantilla_Alumnos.xlsx"; // Debe coincidir con tu archivo en la carpeta Plantillas
+
+                ExcelExportHelper.ExportToExcel((DataView)AlumnosGrid.ItemsSource, fileName, template);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al exportar: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

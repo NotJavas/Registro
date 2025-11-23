@@ -60,6 +60,7 @@
                 <Button Content="Guardar" Click="Guardar_Click" Style="{StaticResource LoginButton}" Margin="5"/>
                 <Button Content="Nuevo" Click="Nuevo_Click" Style="{StaticResource LoginButton}" Margin="5"/>
                 <Button Content="Eliminar" Click="Eliminar_Click" Style="{StaticResource LoginButton}" Margin="5"/>
+                <Button Content="Exportar Excel" Click="ExportarExcel_Click" Style="{StaticResource LoginButton}" Margin="5" Background="#2ecc71"/>
             </StackPanel>
         </Grid>
     </Grid>

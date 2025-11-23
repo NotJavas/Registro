@@ -4,6 +4,7 @@ using System.Data.SQLite;
 using System.Windows;
 using System.Windows.Controls;
 using Registro.Login.Database;
+using Registro.Utils;
 
 namespace Registro.EditarMaterias
 {
@@ -132,6 +133,21 @@ namespace Registro.EditarMaterias
             else
             {
                 MessageBox.Show("Por favor, selecciona una materia para eliminar.", "Selección Requerida", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+        
+        private void ExportarExcel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string fileName = $"Reporte_Materias_{DateTime.Now:yyyyMMdd_HHmm}.xlsx";
+                string template = "Plantilla_Materias.xlsx"; // Debe coincidir con tu archivo en la carpeta Plantillas
+
+                ExcelExportHelper.ExportToExcel((DataView)MateriasGrid.ItemsSource, fileName, template);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al exportar: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
