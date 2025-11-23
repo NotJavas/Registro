@@ -12,7 +12,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- DataGrid para mostrar los alumnos -->
         <DataGrid x:Name="AlumnosGrid" Grid.Row="0" 
                   AutoGenerateColumns="False" 
                   IsReadOnly="True"
@@ -31,7 +30,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Formulario de Edición/Creación -->
         <Grid Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -39,13 +37,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> <RowDefinition Height="Auto"/> <RowDefinition Height="Auto"/> <RowDefinition Height="Auto"/> <RowDefinition Height="Auto"/> <RowDefinition Height="Auto"/> </Grid.RowDefinitions>
 
             <Label Content="Expediente:" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextLabel}"/>
             <TextBox x:Name="TxtExpediente" Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
@@ -69,6 +61,7 @@
                 <Button Content="Guardar" Click="Guardar_Click" Style="{StaticResource LoginButton}" Margin="5"/>
                 <Button Content="Nuevo" Click="Nuevo_Click" Style="{StaticResource LoginButton}" Margin="5"/>
                 <Button Content="Eliminar" Click="Eliminar_Click" Style="{StaticResource LoginButton}" Margin="5"/>
+                <Button Content="Exportar Excel" Click="ExportarExcel_Click" Style="{StaticResource LoginButton}" Margin="5" Background="#2ecc71"/>
             </StackPanel>
         </Grid>
     </Grid>
