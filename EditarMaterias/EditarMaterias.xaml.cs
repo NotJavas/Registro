@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SQLite;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using Registro.Login.Database;
@@ -10,6 +11,8 @@ namespace Registro.EditarMaterias
 {
     public partial class EditarMaterias : Window
     {
+        private DataTable _materiasDataTable;
+
         public EditarMaterias()
         {
             InitializeComponent();
@@ -29,9 +32,9 @@ namespace Registro.EditarMaterias
                 using (var cmd = new SQLiteCommand(query, Globales.Conexion))
                 {
                     var adapter = new SQLiteDataAdapter(cmd);
-                    var dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    MateriasGrid.ItemsSource = dataTable.DefaultView;
+                    _materiasDataTable = new DataTable();
+                    adapter.Fill(_materiasDataTable);
+                    MateriasGrid.ItemsSource = _materiasDataTable.DefaultView;
                 }
             }
             catch (Exception ex)
@@ -149,6 +152,30 @@ namespace Registro.EditarMaterias
             {
                 MessageBox.Show($"Error al exportar: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Filtro_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            AplicarFiltros();
+        }
+
+        private void AplicarFiltros()
+        {
+            if (_materiasDataTable == null) return;
+
+            var filterExpression = new StringBuilder();
+
+            if (!string.IsNullOrWhiteSpace(FilterID.Text))
+                filterExpression.Append($"CONVERT(ID, 'System.String') LIKE '%{FilterID.Text}%' AND ");
+            if (!string.IsNullOrWhiteSpace(FilterNombre.Text))
+                filterExpression.Append($"Nombre LIKE '%{FilterNombre.Text}%' AND ");
+            if (!string.IsNullOrWhiteSpace(FilterSemestre.Text))
+                filterExpression.Append($"CONVERT(Semestre, 'System.String') LIKE '%{FilterSemestre.Text}%' AND ");
+
+            if (filterExpression.Length > 0)
+                filterExpression.Length -= 5; // Elimina el último " AND "
+
+            _materiasDataTable.DefaultView.RowFilter = filterExpression.ToString();
         }
     }
 }

@@ -11,5 +11,6 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("plantillas/plantilla_alumnos.xlsx")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("plantillas/plantilla_maestros.xlsx")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("plantillas/plantilla_materias.xlsx")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("readme.md")]
 
 

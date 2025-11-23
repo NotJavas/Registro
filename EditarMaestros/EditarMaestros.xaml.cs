@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SQLite;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using Registro.Login.Database;
@@ -10,6 +11,8 @@ namespace Registro.EditarMaestros
 {
     public partial class EditarMaestros : Window
     {
+        private DataTable _maestrosDataTable;
+
         public EditarMaestros()
         {
             InitializeComponent();
@@ -29,9 +32,9 @@ namespace Registro.EditarMaestros
                 using (var cmd = new SQLiteCommand(query, Globales.Conexion))
                 {
                     var adapter = new SQLiteDataAdapter(cmd);
-                    var dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    MaestrosGrid.ItemsSource = dataTable.DefaultView;
+                    _maestrosDataTable = new DataTable();
+                    adapter.Fill(_maestrosDataTable);
+                    MaestrosGrid.ItemsSource = _maestrosDataTable.DefaultView;
                 }
             }
             catch (Exception ex)
@@ -155,6 +158,34 @@ namespace Registro.EditarMaestros
             {
                 MessageBox.Show($"Error al exportar: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Filtro_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            AplicarFiltros();
+        }
+
+        private void AplicarFiltros()
+        {
+            if (_maestrosDataTable == null) return;
+
+            var filterExpression = new StringBuilder();
+
+            if (!string.IsNullOrWhiteSpace(FilterID.Text))
+                filterExpression.Append($"CONVERT(ID, 'System.String') LIKE '%{FilterID.Text}%' AND ");
+            if (!string.IsNullOrWhiteSpace(FilterNombre.Text))
+                filterExpression.Append($"Nombre LIKE '%{FilterNombre.Text}%' AND ");
+            if (!string.IsNullOrWhiteSpace(FilterCorreo.Text))
+                filterExpression.Append($"Correo LIKE '%{FilterCorreo.Text}%' AND ");
+            if (!string.IsNullOrWhiteSpace(FilterFacultad.Text))
+                filterExpression.Append($"Facultad LIKE '%{FilterFacultad.Text}%' AND ");
+            if (!string.IsNullOrWhiteSpace(FilterTipo.Text))
+                filterExpression.Append($"Tipo LIKE '%{FilterTipo.Text}%' AND ");
+
+            if (filterExpression.Length > 0)
+                filterExpression.Length -= 5; // Elimina el último " AND "
+
+            _maestrosDataTable.DefaultView.RowFilter = filterExpression.ToString();
         }
     }
 }

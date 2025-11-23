@@ -1,15 +1,18 @@
 using System;
 using System.Data;
 using System.Data.SQLite;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using Registro.Login.Database;
-using Registro.Utils; // Importante para el helper
+using Registro.Utils;
 
 namespace Registro.EditarAlumnos
 {
     public partial class EditarAlumnos : Window
     {
+        private DataTable _alumnosDataTable;
+
         public EditarAlumnos()
         {
             InitializeComponent();
@@ -29,9 +32,9 @@ namespace Registro.EditarAlumnos
                 using (var cmd = new SQLiteCommand(query, Globales.Conexion))
                 {
                     var adapter = new SQLiteDataAdapter(cmd);
-                    var dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    AlumnosGrid.ItemsSource = dataTable.DefaultView;
+                    _alumnosDataTable = new DataTable();
+                    adapter.Fill(_alumnosDataTable);
+                    AlumnosGrid.ItemsSource = _alumnosDataTable.DefaultView;
                 }
             }
             catch (Exception ex)
@@ -141,12 +144,13 @@ namespace Registro.EditarAlumnos
                 MessageBox.Show("Por favor, selecciona un alumno para eliminar.", "Selección Requerida", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
         private void ExportarExcel_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 string fileName = $"Reporte_Alumnos_{DateTime.Now:yyyyMMdd_HHmm}.xlsx";
-                string template = "Plantilla_Alumnos.xlsx"; // Debe coincidir con tu archivo en la carpeta Plantillas
+                string template = "Plantilla_Alumnos.xlsx";
 
                 ExcelExportHelper.ExportToExcel((DataView)AlumnosGrid.ItemsSource, fileName, template);
             }
@@ -154,6 +158,36 @@ namespace Registro.EditarAlumnos
             {
                 MessageBox.Show($"Error al exportar: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Filtro_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            AplicarFiltros();
+        }
+
+        private void AplicarFiltros()
+        {
+            if (_alumnosDataTable == null) return;
+
+            var filterExpression = new StringBuilder();
+
+            if (!string.IsNullOrWhiteSpace(FilterExpediente.Text))
+                filterExpression.Append($"CONVERT(Expediente, 'System.String') LIKE '%{FilterExpediente.Text}%' AND ");
+            if (!string.IsNullOrWhiteSpace(FilterNombre.Text))
+                filterExpression.Append($"Nombre LIKE '%{FilterNombre.Text}%' AND ");
+            if (!string.IsNullOrWhiteSpace(FilterSemestre.Text))
+                filterExpression.Append($"CONVERT(Semestre, 'System.String') LIKE '%{FilterSemestre.Text}%' AND ");
+            if (!string.IsNullOrWhiteSpace(FilterCorreo.Text))
+                filterExpression.Append($"Correo LIKE '%{FilterCorreo.Text}%' AND ");
+            if (!string.IsNullOrWhiteSpace(FilterEdad.Text))
+                filterExpression.Append($"CONVERT(Edad, 'System.String') LIKE '%{FilterEdad.Text}%' AND ");
+            if (!string.IsNullOrWhiteSpace(FilterGenero.Text))
+                filterExpression.Append($"Genero LIKE '%{FilterGenero.Text}%' AND ");
+
+            if (filterExpression.Length > 0)
+                filterExpression.Length -= 5; // Elimina el último " AND "
+
+            _alumnosDataTable.DefaultView.RowFilter = filterExpression.ToString();
         }
     }
 }
