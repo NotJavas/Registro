@@ -1,9 +1,11 @@
 using System;
 using System.Data;
 using System.Data.SQLite;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Win32;
 using Registro.Login.Database;
 using Registro.Utils;
 
@@ -28,7 +30,7 @@ namespace Registro.EditarAlumnos
                     Globales.Conexion.Open();
                 }
 
-                const string query = "SELECT Expediente, Nombre, Semestre, Correo, Edad, Genero FROM Alumnos";
+                const string query = "SELECT Expediente, Nombre, Semestre, Direccion, TelefonoAlumno, TelefonoContacto, FechaNacimiento, Edad, Genero, Correo, Alergias, LugarNacimiento, PadreTutor, MadreTutora, TotalNA FROM Alumnos";
                 using (var cmd = new SQLiteCommand(query, Globales.Conexion))
                 {
                     var adapter = new SQLiteDataAdapter(cmd);
@@ -50,9 +52,25 @@ namespace Registro.EditarAlumnos
                 TxtExpediente.Text = selectedRow["Expediente"].ToString();
                 TxtNombre.Text = selectedRow["Nombre"].ToString();
                 TxtSemestre.Text = selectedRow["Semestre"].ToString();
-                TxtCorreo.Text = selectedRow["Correo"].ToString();
+                TxtDireccion.Text = selectedRow["Direccion"].ToString();
+                TxtTelefonoAlumno.Text = selectedRow["TelefonoAlumno"].ToString();
+                TxtTelefonoContacto.Text = selectedRow["TelefonoContacto"].ToString();
+                if (DateTime.TryParse(selectedRow["FechaNacimiento"].ToString(), out DateTime fechaNac))
+                {
+                    DpFechaNacimiento.SelectedDate = fechaNac;
+                }
+                else
+                {
+                    DpFechaNacimiento.SelectedDate = null;
+                }
                 TxtEdad.Text = selectedRow["Edad"].ToString();
                 TxtGenero.Text = selectedRow["Genero"].ToString();
+                TxtCorreo.Text = selectedRow["Correo"].ToString();
+                TxtAlergias.Text = selectedRow["Alergias"].ToString();
+                TxtLugarNacimiento.Text = selectedRow["LugarNacimiento"].ToString();
+                TxtPadreTutor.Text = selectedRow["PadreTutor"].ToString();
+                TxtMadreTutora.Text = selectedRow["MadreTutora"].ToString();
+                TxtTotalNA.Text = selectedRow["TotalNA"].ToString();
             }
         }
 
@@ -69,11 +87,11 @@ namespace Registro.EditarAlumnos
 
             if (isNew)
             {
-                query = "INSERT INTO Alumnos (Expediente, Nombre, Semestre, Correo, Edad, Genero) VALUES (@expediente, @nombre, @semestre, @correo, @edad, @genero)";
+                query = "INSERT INTO Alumnos (Expediente, Nombre, Semestre, Direccion, TelefonoAlumno, TelefonoContacto, FechaNacimiento, Edad, Genero, Correo, Alergias, LugarNacimiento, PadreTutor, MadreTutora, TotalNA) VALUES (@expediente, @nombre, @semestre, @direccion, @telefonoAlumno, @telefonoContacto, @fechaNacimiento, @edad, @genero, @correo, @alergias, @lugarNacimiento, @padreTutor, @madreTutora, @totalNA)";
             }
             else
             {
-                query = "UPDATE Alumnos SET Nombre = @nombre, Semestre = @semestre, Correo = @correo, Edad = @edad, Genero = @genero WHERE Expediente = @expediente";
+                query = "UPDATE Alumnos SET Nombre = @nombre, Semestre = @semestre, Direccion = @direccion, TelefonoAlumno = @telefonoAlumno, TelefonoContacto = @telefonoContacto, FechaNacimiento = @fechaNacimiento, Edad = @edad, Genero = @genero, Correo = @correo, Alergias = @alergias, LugarNacimiento = @lugarNacimiento, PadreTutor = @padreTutor, MadreTutora = @madreTutora, TotalNA = @totalNA WHERE Expediente = @expediente";
             }
 
             try
@@ -83,9 +101,18 @@ namespace Registro.EditarAlumnos
                     cmd.Parameters.AddWithValue("@expediente", TxtExpediente.Text);
                     cmd.Parameters.AddWithValue("@nombre", TxtNombre.Text);
                     cmd.Parameters.AddWithValue("@semestre", TxtSemestre.Text);
-                    cmd.Parameters.AddWithValue("@correo", TxtCorreo.Text);
+                    cmd.Parameters.AddWithValue("@direccion", TxtDireccion.Text);
+                    cmd.Parameters.AddWithValue("@telefonoAlumno", TxtTelefonoAlumno.Text);
+                    cmd.Parameters.AddWithValue("@telefonoContacto", TxtTelefonoContacto.Text);
+                    cmd.Parameters.AddWithValue("@fechaNacimiento", DpFechaNacimiento.SelectedDate?.ToString("yyyy-MM-dd"));
                     cmd.Parameters.AddWithValue("@edad", TxtEdad.Text);
                     cmd.Parameters.AddWithValue("@genero", TxtGenero.Text);
+                    cmd.Parameters.AddWithValue("@correo", TxtCorreo.Text);
+                    cmd.Parameters.AddWithValue("@alergias", TxtAlergias.Text);
+                    cmd.Parameters.AddWithValue("@lugarNacimiento", TxtLugarNacimiento.Text);
+                    cmd.Parameters.AddWithValue("@padreTutor", TxtPadreTutor.Text);
+                    cmd.Parameters.AddWithValue("@madreTutora", TxtMadreTutora.Text);
+                    cmd.Parameters.AddWithValue("@totalNA", TxtTotalNA.Text);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -106,9 +133,18 @@ namespace Registro.EditarAlumnos
             TxtExpediente.Clear();
             TxtNombre.Clear();
             TxtSemestre.Clear();
-            TxtCorreo.Clear();
+            TxtDireccion.Clear();
+            TxtTelefonoAlumno.Clear();
+            TxtTelefonoContacto.Clear();
+            DpFechaNacimiento.SelectedDate = null;
             TxtEdad.Clear();
             TxtGenero.Clear();
+            TxtCorreo.Clear();
+            TxtAlergias.Clear();
+            TxtLugarNacimiento.Clear();
+            TxtPadreTutor.Clear();
+            TxtMadreTutora.Clear();
+            TxtTotalNA.Clear();
             TxtExpediente.Focus();
         }
 
@@ -160,6 +196,43 @@ namespace Registro.EditarAlumnos
             }
         }
 
+        private void ExportarFichas_Click(object sender, RoutedEventArgs e)
+        {
+            if (AlumnosGrid.Items.Count == 0)
+            {
+                MessageBox.Show("No hay alumnos en la lista para exportar.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var dialog = new SaveFileDialog
+            {
+                Title = "Selecciona una carpeta para guardar las fichas",
+                Filter = "Directorio|*.this.is.a.dummy.extension",
+                FileName = "Selecciona una carpeta"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                string path = Path.GetDirectoryName(dialog.FileName);
+                string plantillaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plantillas", "Ficha_Alumnos.xlsx");
+                int contador = 0;
+
+                try
+                {
+                    foreach (DataRowView alumno in AlumnosGrid.Items)
+                    {
+                        ExcelExportHelper.ExportarFichaAlumnoAPdf(alumno, plantillaPath, path);
+                        contador++;
+                    }
+                    MessageBox.Show($"{contador} fichas de alumnos han sido exportadas a PDF con éxito.", "Exportación Completa", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error durante la exportación:\n{ex.Message}", "Error de Exportación", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
         private void Filtro_TextChanged(object sender, TextChangedEventArgs e)
         {
             AplicarFiltros();
@@ -183,9 +256,11 @@ namespace Registro.EditarAlumnos
                 filterExpression.Append($"CONVERT(Edad, 'System.String') LIKE '%{FilterEdad.Text}%' AND ");
             if (!string.IsNullOrWhiteSpace(FilterGenero.Text))
                 filterExpression.Append($"Genero LIKE '%{FilterGenero.Text}%' AND ");
+            if (!string.IsNullOrWhiteSpace(FilterDireccion.Text))
+                filterExpression.Append($"Direccion LIKE '%{FilterDireccion.Text}%' AND ");
 
             if (filterExpression.Length > 0)
-                filterExpression.Length -= 5; // Elimina el último " AND "
+                filterExpression.Length -= 5;
 
             _alumnosDataTable.DefaultView.RowFilter = filterExpression.ToString();
         }

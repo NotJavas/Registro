@@ -142,3 +142,4 @@ C:\Users\Javas\RiderProjects\Registro4\obj\Debug\Registro_Content.g.cs
 C:\Users\Javas\RiderProjects\Registro4\bin\Debug\Plantillas\Plantilla_Alumnos.xlsx
 C:\Users\Javas\RiderProjects\Registro4\bin\Debug\Plantillas\Plantilla_Maestros.xlsx
 C:\Users\Javas\RiderProjects\Registro4\bin\Debug\Plantillas\Plantilla_Materias.xlsx
+C:\Users\Javas\RiderProjects\Registro4\bin\Debug\Plantillas\Ficha_Alumnos.xlsx

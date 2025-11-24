@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <!--//////////////////////////////////////////////////////////////////////////-->
+    <!-- Estilo para Cajas de Texto (TextBox)                                     -->
+    <!--//////////////////////////////////////////////////////////////////////////-->
     <Style x:Key="TextBox" TargetType="TextBox">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -14,6 +17,9 @@
         <Setter Property="CaretBrush" Value="White"/>
     </Style>
 
+    <!--//////////////////////////////////////////////////////////////////////////-->
+    <!-- Estilo para Cajas de Contraseña (PasswordBox)                            -->
+    <!--//////////////////////////////////////////////////////////////////////////-->
     <Style x:Key="PasswordBox" TargetType="PasswordBox">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -27,6 +33,9 @@
         <Setter Property="CaretBrush" Value="White"/>
     </Style>
 
+    <!--//////////////////////////////////////////////////////////////////////////-->
+    <!-- Estilo para Cajas de Texto de Filtro (FilterTextBox)                     -->
+    <!--//////////////////////////////////////////////////////////////////////////-->
     <Style x:Key="FilterTextBox" TargetType="TextBox">
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontFamily" Value="Segoe UI"/>

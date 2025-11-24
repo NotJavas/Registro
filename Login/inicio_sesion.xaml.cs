@@ -24,7 +24,7 @@ namespace Registro.Login
                     TxtClave.Password = TxtClaveVisible.Text;
                 }
 
-                string usuario = TxtUsuario.Text;
+                string usuario = ComboBoxUsuarios.Text;
                 string clave = TxtClave.Password;
 
                 if (ValidarUsuario(usuario, clave))
@@ -37,7 +37,7 @@ namespace Registro.Login
                 {
                     MessageBox.Show("Usuario o clave incorrectos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     TxtClave.Clear();
-                    TxtClaveVisible.Clear(); // Limpiamos también el TextBox visible
+                    TxtClaveVisible.Clear();
                     TxtClave.Focus();
                 }
             }
@@ -94,7 +94,7 @@ namespace Registro.Login
         {
             if (ComboBoxUsuarios.SelectedItem != null)
             {
-                TxtUsuario.Text = ComboBoxUsuarios.SelectedItem.ToString();
+                ComboBoxUsuarios.Text = ComboBoxUsuarios.SelectedItem.ToString();
             }
         }
         
@@ -102,7 +102,6 @@ namespace Registro.Login
         {
             if (CheckBoxMostrarClave.IsChecked == true)
             {
-
                 TxtClaveVisible.Text = TxtClave.Password;
                 TxtClaveVisible.Visibility = Visibility.Visible;
                 TxtClave.Visibility = Visibility.Collapsed;
@@ -113,6 +112,10 @@ namespace Registro.Login
                 TxtClave.Visibility = Visibility.Visible;
                 TxtClaveVisible.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void ComboBoxUsuarios_TextChanged(object sender, TextChangedEventArgs e)
+        {
         }
     }
 }

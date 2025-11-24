@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("plantillas/ficha_alumnos.xlsx")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("plantillas/plantilla_alumnos.xlsx")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("plantillas/plantilla_maestros.xlsx")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("plantillas/plantilla_materias.xlsx")]

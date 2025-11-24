@@ -172,6 +172,9 @@
     <Resource Include="Iconos\user.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Plantillas\Ficha_Alumnos.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Plantillas\Plantilla_Alumnos.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

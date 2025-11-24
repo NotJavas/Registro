@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Gestión de Alumnos" 
-        Height="700" Width="800" 
+        Height="800" Width="1200" 
         WindowStartupLocation="CenterScreen"
         Background="#37393f">
 
@@ -13,7 +13,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Fila de Filtros -->
+        <!-- Filtros -->
         <Grid Grid.Row="0" Margin="10,5,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
@@ -22,6 +22,7 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <TextBox x:Name="FilterExpediente" Grid.Column="0" Style="{StaticResource FilterTextBox}" Tag="Expediente..." TextChanged="Filtro_TextChanged"/>
@@ -30,8 +31,10 @@
             <TextBox x:Name="FilterCorreo" Grid.Column="3" Style="{StaticResource FilterTextBox}" Tag="Correo..." TextChanged="Filtro_TextChanged"/>
             <TextBox x:Name="FilterEdad" Grid.Column="4" Style="{StaticResource FilterTextBox}" Tag="Edad..." TextChanged="Filtro_TextChanged"/>
             <TextBox x:Name="FilterGenero" Grid.Column="5" Style="{StaticResource FilterTextBox}" Tag="Género..." TextChanged="Filtro_TextChanged"/>
+            <TextBox x:Name="FilterDireccion" Grid.Column="6" Style="{StaticResource FilterTextBox}" Tag="Dirección..." TextChanged="Filtro_TextChanged"/>
         </Grid>
 
+        <!-- Grid -->
         <DataGrid x:Name="AlumnosGrid" Grid.Row="1" 
                   AutoGenerateColumns="False" 
                   IsReadOnly="True"
@@ -47,48 +50,96 @@
                 <DataGridTextColumn Header="Correo" Binding="{Binding Correo}" Width="2*"/>
                 <DataGridTextColumn Header="Edad" Binding="{Binding Edad}" Width="60"/>
                 <DataGridTextColumn Header="Género" Binding="{Binding Genero}" Width="80"/>
+                <DataGridTextColumn Header="Direccion" Binding="{Binding Direccion}" Width="2*"/>
+                <DataGridTextColumn Header="Tel. Alumno" Binding="{Binding TelefonoAlumno}" Width="*"/>
+                <DataGridTextColumn Header="Tel. Contacto" Binding="{Binding TelefonoContacto}" Width="*"/>
+                <DataGridTextColumn Header="Fec. Nacimiento" Binding="{Binding FechaNacimiento}" Width="*"/>
+                <DataGridTextColumn Header="Alergias" Binding="{Binding Alergias}" Width="*"/>
+                <DataGridTextColumn Header="Lugar Nac" Binding="{Binding LugarNacimiento}" Width="*"/>
+                <DataGridTextColumn Header="Padre/Tutor" Binding="{Binding PadreTutor}" Width="*"/>
+                <DataGridTextColumn Header="Madre/Tutora" Binding="{Binding MadreTutora}" Width="*"/>
+                <DataGridTextColumn Header="Total NA" Binding="{Binding TotalNA}" Width="60"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Grid Grid.Row="2" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <!-- Campos -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" MaxHeight="300">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/> <!-- Labels columna 0 -->
+                    <ColumnDefinition Width="*"/>    <!-- TextBoxes columna 1 -->
+                    <ColumnDefinition Width="Auto"/> <!-- Labels columna 2 -->
+                    <ColumnDefinition Width="*"/>    <!-- TextBoxes collumna 3 -->
+                    <ColumnDefinition Width="Auto"/> <!-- Buttons columna 4 -->
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <Label Content="Expediente:" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextLabel}"/>
-            <TextBox x:Name="TxtExpediente" Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+                <!-- Columna 0 and 1 -->
+                <Label Content="Expediente:" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtExpediente" Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
 
-            <Label Content="Nombre:" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextLabel}"/>
-            <TextBox x:Name="TxtNombre" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+                <Label Content="Nombre:" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtNombre" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
 
-            <Label Content="Semestre:" Grid.Row="2" Grid.Column="0" Style="{StaticResource TextLabel}"/>
-            <TextBox x:Name="TxtSemestre" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+                <Label Content="Semestre:" Grid.Row="2" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtSemestre" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
 
-            <Label Content="Correo:" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextLabel}"/>
-            <TextBox x:Name="TxtCorreo" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+                <Label Content="Correo:" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtCorreo" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
 
-            <Label Content="Edad:" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextLabel}"/>
-            <TextBox x:Name="TxtEdad" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+                <Label Content="Edad:" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtEdad" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
 
-            <Label Content="Género:" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextLabel}"/>
-            <TextBox x:Name="TxtGenero" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+                <Label Content="Género:" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtGenero" Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
 
-            <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="6" VerticalAlignment="Center">
-                <Button Content="Guardar" Click="Guardar_Click" Style="{StaticResource LoginButton}" Margin="5"/>
-                <Button Content="Nuevo" Click="Nuevo_Click" Style="{StaticResource LoginButton}" Margin="5"/>
-                <Button Content="Eliminar" Click="Eliminar_Click" Style="{StaticResource LoginButton}" Margin="5"/>
-                <Button Content="Exportar Excel" Click="ExportarExcel_Click" Style="{StaticResource LoginButton}" Margin="5" Background="#2ecc71"/>
-            </StackPanel>
-        </Grid>
+                <Label Content="Total NA:" Grid.Row="6" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtTotalNA" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBox}" Margin="5"/>
+
+                <!-- Columna 2 y 3 -->
+                <Label Content="Tel. Alumno:" Grid.Row="0" Grid.Column="2" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtTelefonoAlumno" Grid.Row="0" Grid.Column="3" Style="{StaticResource TextBox}" Margin="5"/>
+
+                <Label Content="Tel. Contacto:" Grid.Row="1" Grid.Column="2" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtTelefonoContacto" Grid.Row="1" Grid.Column="3" Style="{StaticResource TextBox}" Margin="5"/>
+
+                <Label Content="Fec. Nacimiento:" Grid.Row="2" Grid.Column="2" Style="{StaticResource TextLabel}"/>
+                <DatePicker x:Name="DpFechaNacimiento" Grid.Row="2" Grid.Column="3" Margin="5"/>
+
+                <Label Content="Lugar Nacimiento:" Grid.Row="3" Grid.Column="2" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtLugarNacimiento" Grid.Row="3" Grid.Column="3" Style="{StaticResource TextBox}" Margin="5"/>
+                
+                <Label Content="Padre/Tutor:" Grid.Row="4" Grid.Column="2" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtPadreTutor" Grid.Row="4" Grid.Column="3" Style="{StaticResource TextBox}" Margin="5"/>
+
+                <Label Content="Madre/Tutora:" Grid.Row="5" Grid.Column="2" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtMadreTutora" Grid.Row="5" Grid.Column="3" Style="{StaticResource TextBox}" Margin="5"/>
+
+                <Label Content="Alergias:" Grid.Row="6" Grid.Column="2" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtAlergias" Grid.Row="6" Grid.Column="3" Style="{StaticResource TextBox}" Margin="5"/>
+
+                <!-- Address is special, it spans columns -->
+                <Label Content="Dirección:" Grid.Row="7" Grid.Column="0" Style="{StaticResource TextLabel}"/>
+                <TextBox x:Name="TxtDireccion" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" Style="{StaticResource TextBox}" Margin="5"/>
+
+                <!-- Columna 4 -->
+                <StackPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="8" VerticalAlignment="Center">
+                    <Button Content="Guardar" Click="Guardar_Click" Style="{StaticResource LoginButton}" Margin="5"/>
+                    <Button Content="Nuevo" Click="Nuevo_Click" Style="{StaticResource LoginButton}" Margin="5"/>
+                    <Button Content="Eliminar" Click="Eliminar_Click" Style="{StaticResource LoginButton}" Margin="5" Background="Brown"/>
+                    <Button Content="Exportar Excel" Click="ExportarExcel_Click" Style="{StaticResource LoginButton}" Margin="5" Background="#2ecc71"/>
+                    <Button Content="Exportar Fichas" Click="ExportarFichas_Click" Style="{StaticResource LoginButton}" Margin="5" Background="CadetBlue"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Window>
